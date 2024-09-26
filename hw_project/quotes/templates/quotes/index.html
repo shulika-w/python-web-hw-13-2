@@ -1,0 +1,38 @@
+{% extends "quotes/base.html" %}
+
+{% block content %}
+
+{% if quote_tags_list %}
+    {% for quote, tags in quote_tags_list %}
+    <ul>
+        <li>
+            <i>{{ quote.quote }}</i>
+            <p><a href="{% url 'quotes:author' quote.author.full_name_url %}">{{ quote.author }}</a></p>
+            {% if tags %}
+                <p>Tags:
+                    <small>
+                        {% for tag in tags %}
+                            <a href="{% url 'quotes:tag' tag.title %}">#{{ tag.title }}</a>
+                        {% endfor %}
+                    </small>
+                </p>
+            {% endif %}
+            <br>
+        </li>
+    </ul>
+    {% endfor %}
+{% else %}
+No quotes found!<p></p>
+{% endif %}
+{% if previous_page_id or next_page_id %}
+<ul>
+    {% if previous_page_id %}
+        <span style="float:left;"><a href="{% url 'quotes:main-page-id' previous_page_id %}" role="button"><span aria-hidden="true">←</span> Previous</a></span>
+    {% endif %}
+    {% if next_page_id %}
+        <span style="float:right;"><a href="{% url 'quotes:main-page-id' next_page_id %}" role="button">Next <span aria-hidden="true">→</span></a></span>
+    {% endif %}
+</ul>
+{% endif %}
+
+{% endblock %}

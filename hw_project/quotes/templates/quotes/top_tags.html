@@ -1,0 +1,17 @@
+{% extends "quotes/base.html" %}
+
+{% block content %}
+
+{% if tags %}
+    {% for tag in tags %}
+    <ul>
+        <li>
+            <p><a href="{% url 'quotes:tag' tag.title %}">#{{ tag.title }}</a></p>
+        </li>
+    </ul>
+    {% endfor %}
+{% else %}
+No tags found!<p></p>
+{% endif %}
+
+{% endblock %}
